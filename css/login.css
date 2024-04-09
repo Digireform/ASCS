@@ -335,19 +335,22 @@ ul.dashboard_menu_lists{
 	margin-top:20px;
 }
 
-ul.dashboard_menu_lists li{
-	padding: 15px 15px;	
+ul.dashboard_menu_lists li.liMainMenu{
+	padding-top: 15px;	
 	text-transform: uppercase;
 }
-ul.dashboard_menu_lists li a{
+ul.dashboard_menu_lists li.liMainMenu a{
 	text-decoration: none;
-	color: #fff;
-	height: 100;
+	color: #fff;	
 	display: block;
-    font-size: 20px;
+    font-size: 14px;
+	padding: 0px 15px;
+	padding-bottom: 15px;
+	padding-right: 0px;
 }
-ul.dashboard_menu_lists li a i{	
-	font-size: 25px;      
+ul.dashboard_menu_lists li.liMainMenu a i{	
+	font-size: 23px;
+	width: 30px;      
 }
 ul.dashboard_menu_lists li.menuActive{
 	background: grey;
@@ -427,4 +430,88 @@ p.responseMessage__error{
 }
 p.responseMessage__success{
     background: rgba(0, 128, 0, 0.1);	
+}
+/* User Add Page */
+div.row{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	width: 100%;
+}
+div.column{
+	width: 100%;
+	padding:0px 10px;
+}
+div.column-5{
+	width: 41.67%;
+}
+div.column-7{
+	width: 58.33%;
+}
+
+
+h1.section_header{
+	font-size: 21px;
+    color: rgb(118, 118, 170);
+    border-bottom: 1px solid rgb(176, 176, 224);
+    padding-bottom: 11px;
+    padding: 10px;
+    border-left: 4px solid rgb(176, 176, 224);
+    margin-bottom: 15px;
+}
+table, th, td{    
+	border: 1px solid #cacaca;
+    border-collapse: collapse;
+}
+table{
+	width:100%;
+}
+table th{
+	font-size: 12px;
+	text-transform: uppercase;
+	text-align: center;
+	background: #f4f6f9;
+}
+table td{
+    font-size: 13px;
+    text-align: center;
+    padding:5px;
+}
+p.userCount{
+    text-align: right;
+    font-size: 15px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #f685a1;
+}
+a.subMenuLink{	
+    padding-left: 25px !important;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    text-transform: none;
+    font-size: 15px !important;
+}
+
+a.subMenuLink i{
+	font-size: 16px !important;
+	width: 16px !important;
+}
+
+ul.subMenus{
+	background: #a595ce;
+	display: none;
+	
+}
+
+i.mainMenuIconArrow{
+	float: right;
+	font-size: 19px !important;
+	margin-top: 7px;
+}
+
+.subMenuActive{
+	font-weight: bold;
+    border-top: 2px solid white;
+    border-bottom: 2px solid white;
+    background: #544969;
 }
