@@ -3,8 +3,8 @@
 	session_start();
 	if(!isset($_SESSION['user'])) header('location: login.php');
 	$_SESSION['table'] = 'users';
+	$_SESSION['redirect_to'] = 'users-add.php';
 	$user = $_SESSION['user'];
-
 	$users = include('database/show.php')
 
 
@@ -14,9 +14,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Automted Stock Control System - ASCS</title>
-    <link rel="stylesheet" type="text/css" href="css/login.css?v=<?= time(); ?>">
-    <script src="https://use.fontawesome.com/0c7a3095b5.js"></script>
+    <title>Add User - Automted Stock Control System - ASCS</title>
+    
+	<?php include('partials/app-header-script.php'); ?>
+
 </head>
 <body>    
 
@@ -101,13 +102,10 @@
  <script src="js/script.js?v=<?= time(); ?>"></script>
  <script src="js/jquery/jquery-3.5.1.min.js"></script>
  <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.35.4/js/bootstrap-dialog.js" integrity="sha512-AZ+KX5NScHcQKWBfRXlCtb+ckjKYLO1i10faHLPXtGacz34rhXU8KM4t77XXG/Oy9961AeLqB/5o0KTJfy2WiA==" crossorigin="anonymous"></script>
 
+
+
+ <?php include('partials/app-scripts.php'); ?>
 
 </body>
 </html>
