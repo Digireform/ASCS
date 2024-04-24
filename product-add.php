@@ -40,7 +40,7 @@
 
 
 
-                            <form action="database/add.php" method="POST" class="appForm">
+                            <form action="database/add.php" method="POST" class="appForm" enctype="multipart/form-data">
 					            <div class="appFormInputContainer">
 						            <label for="product_name">Product Name</label>
 						            <input type="text" class="appFormInput" id="product_name" placeholder="Enter Product name..." name="product_name" required/>	
@@ -52,7 +52,13 @@
                                     </textarea>
                                   
                                 </div>   
-					            
+
+								<div class="appFormInputContainer">
+										<label for="product_name">Product Image</label>
+										<input type="file" name="img" />
+								</div>							
+
+
 					            <button type="submit" " class="appBtn"><i class="fa fa-plus"></i> Create Product</button>
 				           </form>	
                             <?php 
