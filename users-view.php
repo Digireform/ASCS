@@ -114,38 +114,48 @@
 			    targetElement = e.target;
 			    classList = targetElement.classList;
 
-			    if(classList.contains('deleteUser')){
-			        e.preventDefault();					
-				    userId = targetElement.dataset.userid;
-			        fname = targetElement.dataset.fname;
-			        lname = targetElement.dataset.lname;
-					fullName = fname + ' ' +  lname;
+				if(classList.contains('deleteUser')){
+					e.preventDefault();
+					userId = targetElement.dataset.userid;
+					fname = targetElement.dataset.fname;
+					lname = targetElement.dataset.lname;
+					fullName = fname + ' ' + lname;
 
-    			    if(window.confirm('Are yous sure to delete '+ fullName +'?')){
-				       $.ajax({
-						    method: 'POST',
-							data: {
-								user_id: userId,
-								f_name: fname,
-								l_name: lname
-							},
-							url: 'database/delete.php',
-							dataType: 'json',
-							success: function(data){
-								if(data.success){
-									if(window.confirm(data.message)){
-										location.reload();
+					BootstrapDialog.confirm({
+						title: 'Delete User',
+						type: BootstrapDialog.TYPE_DANGER,
+						message: 'Are you sure to delete <strong>'+ fullName +'</strong> ?',
+						callback: function(isDelete){
+							if(isDelete){								
+								$.ajax({
+									method: 'POST',
+									data: {									
+										id: userId,
+										table: 'users'
+									},
+									url: 'database/delete.php',
+									dataType: 'json',
+									success: function(data){
+										message = data.success ? 
+												fullName + ' successfully deleted!' : 'Error processing your request!';
+
+										BootstrapDialog.alert({
+											type: data.success ? BootstrapDialog.TYPE_SUCCESS : BootstrapDialog.TYPE_DANGER,
+											message: message,
+											callback: function(){
+												if(data.success) location.reload();
+											}
+										});
 									}
-								} else window.alert(data.mesage);
+								});
 							}
-
-
-					   }) 
-			        } else {
-				        console.log('will not delete');				
-
-			        }
+						}
+					});
 				}
+
+
+
+
 				
 				if(classList.contains('updateUser')){
 					e.preventDefault(); // Prevent loading.;
