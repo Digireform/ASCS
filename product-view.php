@@ -68,12 +68,23 @@
 										        </td>
 									 	        <td class="lastName"><?= $product['product_name'] ?></td>
 										        <td class="email"><?= $product['description'] ?></td>
-												<td><?= $product['created_by'] ?></td>
+												<td>
+													
+												<?php
+															$uid = $product['created_by'];
+															$stmt = $conn->prepare("SELECT * FROM users WHERE id=$uid");
+															$stmt->execute();
+															$row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+															$created_by_name = $row['first_name'] . ' ' . $row['last_name'];
+															echo $created_by_name;
+														?>
+											</td>
 										        <td><?= date('M d,Y @ h:i:s A', strtotime($product['created_at'])) ?></td>
 												<td><?= date('M d,Y @ h:i:s A', strtotime($product['updated_at'])) ?></td>
 												<td>
-													<a href="" class="updateUser" data-userid="<?= $product['id'] ?>"><i class="fa fa-pencil"></i>Edit</a>
-													<a href="" class="deleteUser" data-userid="<?= $product['id'] ?>"  <i class="fa fa-trash"></i> Delete</a>
+													<a href="" class="updateProduct" data-pid="<?= $product['id'] ?>"><i class="fa fa-pencil"></i>Edit</a>
+													<a href="" class="deleteProduct" data-name= "<?= $product['product_name'] ?>" data-pid="<?= $product['id'] ?>"  <i class="fa fa-trash"></i> Delete</a>
 												</td>
 									        </tr>
                                         <?php } ?>
@@ -106,8 +117,84 @@
 	<?php include('partials/app-scripts.php'); ?>
 	 
 <script>
+	function script(){
+
+
+
+		this.registerEvents = function(){
+		    document.addEventListener('click', function(e){
+			    targetElement = e.target;
+			    classList = targetElement.classList;
+
+			    if(classList.contains('deleteProduct')){
+			        e.preventDefault();	//this prevents the default mechanism		
+
+
+					pId = targetElement.dataset.pid;
+					pName = targetElement.dataset.name;
+
+
+					BootstrapDialog.confirm({
+						type: BootstrapDialog.TYPE_DANGER,
+						title: 'Delete Product',
+						message: 'Are you sure to delete <strong>'+ pName +'</strong>?',
+						callback: function(isDelete){
+							if(isDelete){								
+								$.ajax({
+									method: 'POST',
+									data: {
+										id: pId,
+										table: 'products'
+									},
+									url: 'database/delete.php',
+									dataType: 'json',
+									success: function(data){
+										message = data.success ? 
+											pName + ' successfully deleted!' : 'Error processing your request!';
+
+										BootstrapDialog.alert({
+											type: data.success ? BootstrapDialog.TYPE_SUCCESS : BootstrapDialog.TYPE_DANGER,
+											message: message,
+											callback: function(){
+												if(data.success) location.reload();
+											}
+										});
+									}
+								});
+							}
+						}
+					});
+
+
+
+
 	
+				}
+				
+	
+		   });
+
+		}
+
+
+
+
+
+		this.initialize = function(){
+			this.registerEvents();
+		}
+		
+
+
+    }
+
+    var script = new script;
+    script.initialize();
+
+
+
 </script>
+
 
 </body>
 </html>
