@@ -43,11 +43,11 @@
                             <form action="database/add.php" method="POST" class="appForm" enctype="multipart/form-data">
 					            <div class="appFormInputContainer">
 						            <label for="product_name">Product Name</label>
-						            <input type="text" class="appFormInput" id="product_name" placeholder="Enter Product name..." name="product_name" required/>	
+						            <input type="text" class="appFormInput" id="product_name" placeholder="Enter Product name..." name="product_name" required>	
 					            </div>
 					            <div class="appFormInputContainer">
 						            <label for="description">Description</label>
-                                    <textarea class="appFormInput productTextAreaInput" placeholder="Enter product description...." id="description" name="description">
+                                    <textarea class="appFormInput productTextAreaInput" placeholder="Enter product description...." id="description" name="description" required>
 
                                     </textarea>
                                   
@@ -55,7 +55,7 @@
 
 								<div class="appFormInputContainer">
 										<label for="product_name">Product Image</label>
-										<input type="file" name="img" />
+										<input type="file" name="img" required/>
 								</div>							
 
 
