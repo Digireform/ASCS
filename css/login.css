@@ -530,3 +530,10 @@ i.mainMenuIconArrow{
 	width: 100px;
 	height: 100px;
 }
+
+#suppliersSelect, #products{
+	display: block;
+	width: 100%;
+	height: 100px;
+	border-color: #d2d2d2;
+}
