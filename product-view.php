@@ -118,6 +118,7 @@
 	 
 <script>
 	function script(){
+		var vm = this;
 
 
 
@@ -170,27 +171,92 @@
 
 	
 				}
-				
-	
-		   });
-
-		}
 
 
+				if(classList.contains('updateProduct')){
+					e.preventDefault(); // this prevents the default mechanism.
 
+					pId = targetElement.dataset.pid;
+					
+					vm.showEditDialog(pId);
+				}
+
+			});
+
+			document.addEventListener('submit', function(e){
+				e.preventDefault();
+				targetElement = e.target;
+
+				if(targetElement.id === 'editProductForm'){
+					vm.saveUpdatedData(targetElement);
+				}
+			})
+
+		},
+
+		this.saveUpdatedData = function(form){
+			$.ajax({
+				method: 'POST',
+				data: new FormData(form),
+				url: 'database/update-product.php',
+				processData: false,
+        		contentType: false,
+        		dataType: 'json',
+				success: function(data){
+					BootstrapDialog.alert({
+						type: data.success ? BootstrapDialog.TYPE_SUCCESS : BootstrapDialog.TYPE_DANGER,
+						message: data.message,
+						callback:function(){
+							if(data.success) location.reload();
+						}
+					});
+				}
+			});
+		},
+
+		this.showEditDialog = function(id){
+			$.get('database/get-product.php', {id: id}, function(productDetails){
+
+
+
+
+				BootstrapDialog.confirm({
+					title: 'Update <strong>' + productDetails.product_name + '</strong>',
+					message: '<form action="database/add.php" method="POST" enctype="multipart/form-data" id="editProductForm">\
+						<div class="appFormInputContainer">\
+							<label for="product_name">Product Name</label>\
+							<input type="text" class="appFormInput" id="product_name" value="'+ productDetails.product_name +'"  placeholder="Enter product name..." name="product_name" />\
+						</div>\
+						<div class="appFormInputContainer">\
+							<label for="description">Description</label>\
+							<textarea class="appFormInput productTextAreaInput" placeholder="Enter product description..." id="description" name="description"> '+ productDetails.description +'</textarea>	\
+						</div>\
+						<div class="appFormInputContainer">\
+							<label for="product_name">Product Image</label>\
+							<input type="file" name="img" />\
+						</div>\
+						<input type="hidden" name="pid" value="'+ productDetails.id +'" />\
+						<input type="submit" value="submit" id="editProductSubmitBtn" class="hidden"/>\
+					</form>\
+					',
+					callback: function(isUpdate){
+						if(isUpdate){ // If user click 'Ok' button.
+							document.getElementById('editProductSubmitBtn').click();
+						}
+					}
+				});
+			}, 'json');
+
+
+		},
 
 
 		this.initialize = function(){
 			this.registerEvents();
 		}
-		
-
-
-    }
-
-    var script = new script;
-    script.initialize();
-
+	}
+	var script = new script;
+	script.initialize();
 
 
 </script>
