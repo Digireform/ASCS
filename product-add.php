@@ -51,7 +51,21 @@
 
                                     </textarea>
                                   
-                                </div>   
+                                </div>  
+								<div class="appFormInputContainer">
+										<label for="description">Suppliers</label>
+										<select name="suppliers[]" id="suppliersSelect" multiple="">
+											<option value="">Select Supplier</option>
+											<?php
+												$show_table = 'suppliers';
+												$suppliers = include('database/show.php');
+
+												foreach($suppliers as $supplier){
+													echo "<option value='".  $supplier['id']  . "'> ".$supplier['supplier_name'] ."</option>";
+												}
+											?>
+										</select>
+									</div> 
 
 								<div class="appFormInputContainer">
 										<label for="product_name">Product Image</label>
