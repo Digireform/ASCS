@@ -18,8 +18,8 @@
                             <i class="fa fa-angle-left mainMenuIconArrow showHideSubMenuw" ></i>
                         </a>
                         <ul class="subMenus">
-					        <li><a class="subMenuLink" href="#"> <i class="fa fa-circle-o"></i> View Product</a></li>
-					        <li><a class="subMenuLink" href="#"> <i class="fa fa-circle-o"></i> Add Product</a></li>
+					        <li><a class="subMenuLink" href="./product-view.php"> <i class="fa fa-circle-o"></i> View Product</a></li>
+					        <li><a class="subMenuLink" href="./product-add.php"> <i class="fa fa-circle-o"></i> Add Product</a></li>
 				        </ul>					
                     </li>
                     <li class="liMainMenu">
@@ -30,8 +30,8 @@
                             <i class="fa fa-angle-left mainMenuIconArrow showHideSubMenuw" ></i>
                         </a>
                         <ul class="subMenus">
-					        <li><a class="subMenuLink" href="#"> <i class="fa fa-circle-o"></i> View Suppler</a></li>
-					        <li><a class="subMenuLink" href="#"> <i class="fa fa-circle-o"></i> Add Supplier</a></li>
+                        <li><a class="subMenuLink" href="./supplier-view.php"> <i class="fa fa-circle-o"></i> View Supplier</a></li>
+					    <li><a class="subMenuLink" href="./supplier-add.php"> <i class="fa fa-circle-o"></i> Add Supplier</a></li>
 				        </ul>					
                     </li>			
                     <li class="liMainMenu showHideSubMenu" >
@@ -41,7 +41,7 @@
                             <i class="fa fa-angle-left mainMenuIconArrow showHideSubMenuw" ></i>
                         </a>
                         <ul class="subMenus">
-					        <li><a class="subMenuLink" href="#"> <i class="fa fa-circle-o"></i> View Users</a></li>
+					        <li><a class="subMenuLink" href="./users-view.php"> <i class="fa fa-circle-o"></i> View Users</a></li>
 					        <li><a class="subMenuLink" href="./users-add.php"> <i class="fa fa-circle-o"></i> Add User</a></li>
 				        </ul>					
                     </li>
