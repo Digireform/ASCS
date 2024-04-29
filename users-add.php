@@ -1,11 +1,14 @@
 <?php
 	// Start the session.
 	session_start();
-	if(!isset($_SESSION['user'])) header('location: login.php');
+	if(!isset($_SESSION['user'])) header('location: login.php');	
 	$_SESSION['table'] = 'users';
 	$_SESSION['redirect_to'] = 'users-add.php';
+
+	$show_table = 'users';
 	$user = $_SESSION['user'];
 	$users = include('database/show.php')
+
 
 
 ?>
