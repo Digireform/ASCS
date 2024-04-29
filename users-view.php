@@ -4,9 +4,9 @@
 	if(!isset($_SESSION['user'])) header('location: login.php');
 	$_SESSION['table'] = 'users';
 	$user = $_SESSION['user'];
+	$show_table = 'users';
 
 	$users = include('database/show.php')
-
 
 ?>
 
