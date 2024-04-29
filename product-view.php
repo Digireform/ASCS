@@ -2,9 +2,9 @@
 	// Start the session.
 	session_start();
 	if(!isset($_SESSION['user'])) header('location: login.php');
-	$_SESSION['table'] = 'products';
+	$show_table = 'products';
+	
 	$user = $_SESSION['user'];
-
 	$products = include('database/show.php')
 
 
@@ -51,7 +51,8 @@
 									    <th>#</th>
                                         <th>Image</th>
 										<th>Product Name</th>
-									 	<th>Description</th>										
+									 	<th width="20%">Description</th>
+										<th width="15%">Suppliers</th>									
 										<th>Created By</th>
                                         <th>Created At</th>
 										<th>Updated At</th>
@@ -68,6 +69,30 @@
 										        </td>
 									 	        <td class="lastName"><?= $product['product_name'] ?></td>
 										        <td class="email"><?= $product['description'] ?></td>
+												<td class="email">
+												    <?php
+														$supplier_list = '-';
+
+														$pid = $product['id'];
+														$stmt = $conn->prepare("
+															SELECT supplier_name 
+																FROM suppliers, productsuppliers 
+																WHERE 
+																	productsuppliers.product=$pid 
+																		AND 
+																	productsuppliers.supplier = suppliers.id
+															");
+														$stmt->execute();
+														$row = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+														if($row){																
+															$supplier_arr = array_column($row, 'supplier_name');
+															$supplier_list = '<li>' . implode("</li><li>", $supplier_arr);
+														}
+
+														echo $supplier_list;
+													?>
+												</td>
 												<td>
 													
 												<?php
@@ -114,9 +139,27 @@
 		</div>
 	</div>
 
-	<?php include('partials/app-scripts.php'); ?>
+	<?php include('partials/app-scripts.php');
+	    include('partials/app-scripts.php'); 
+
+	    $show_table = 'suppliers';
+	    $suppliers = include('database/show.php');
+
+	    $suppliers_arr = [];
+
+	    foreach($suppliers as $supplier){
+		    $suppliers_arr[$supplier['id']] = $supplier['supplier_name'];
+	    }
+
+	    $suppliers_arr = json_encode($suppliers_arr);	
+
+	?>
 	 
 <script>
+
+    var suppliersList = <?= $suppliers_arr ?>;
+
+
 	function script(){
 		var vm = this;
 
@@ -216,6 +259,14 @@
 
 		this.showEditDialog = function(id){
 			$.get('database/get-product.php', {id: id}, function(productDetails){
+				let curSuppliers = productDetails['suppliers'];
+				let supplierOption = '';
+
+
+				for (const [supId, supName] of Object.entries(suppliersList)) {
+					selected = curSuppliers.indexOf(supId) > -1 ? 'selected' : ''; 
+					supplierOption += "<option "+ selected +" value='"+ supId +"'>"+ supName +"</option>";
+				}
 
 
 
@@ -226,6 +277,13 @@
 						<div class="appFormInputContainer">\
 							<label for="product_name">Product Name</label>\
 							<input type="text" class="appFormInput" id="product_name" value="'+ productDetails.product_name +'"  placeholder="Enter product name..." name="product_name" />\
+						</div>\
+						<div class="appFormInputContainer">\
+							<label for="description">Suppliers</label>\
+							<select name="suppliers[]" id="suppliersSelect" multiple="">\
+								<option value="">Select Supplier</option>\
+								' + supplierOption + '\
+							</select>\
 						</div>\
 						<div class="appFormInputContainer">\
 							<label for="description">Description</label>\
